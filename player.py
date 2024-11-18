@@ -16,6 +16,10 @@ class Player():
             print("\nAucune porte dans cette direction !\n")
             return False
         
+        if next_room == "interdit":
+            print("\nPassage interdit !\n")
+            return False
+
         # Set the current room to the next room.
         self.current_room = next_room
         print(self.current_room.get_long_description())
