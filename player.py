@@ -19,6 +19,10 @@ class Player():
         if next_room == "interdit":
             print("\nPassage interdit !\n")
             return False
+        
+        if next_room == "unique":
+            print("\nPassage a sens unique !\n")
+            return False
 
         # Set the current room to the next room.
         self.current_room = next_room
