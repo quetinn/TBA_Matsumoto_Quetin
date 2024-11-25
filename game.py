@@ -30,32 +30,40 @@ class Game:
         
         # Setup rooms
 
-        forest = Room("Forest", "dans une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
-        self.rooms.append(forest)
-        tower = Room("Tower", "dans une immense tour en pierre qui s'élève au dessus des nuages.")
-        self.rooms.append(tower)
-        cave = Room("Cave", "dans une grotte profonde et sombre. Des voix semblent provenir des profondeurs.")
-        self.rooms.append(cave)
-        cottage = Room("Cottage", "dans un petit chalet pittoresque avec un toit de chaume. Une épaisse fumée verte sort de la cheminée.")
-        self.rooms.append(cottage)
-        swamp = Room("Swamp", "dans un marécage sombre et ténébreux. L'eau bouillonne, les abords sont vaseux.")
-        self.rooms.append(swamp)
-        castle = Room("Castle", "dans un énorme château fort avec des douves et un pont levis. Sur les tours, des flèches en or massif.")
-        self.rooms.append(castle)
+        champs = Room("champs-elysees", "Description")
+        self.rooms.append(champs)
+        lazare = Room("lazare", "Description")
+        self.rooms.append(lazare)
+        cdg = Room("Charles de Gaulle - étoile  ", "Description")
+        self.rooms.append(cdg)
+        chatelet = Room("Châtelet", "Description")
+        self.rooms.append(chatelet)
+        paris_nord = Room("Paris Gare du Nord", "Description")
+        self.rooms.append(paris_nord)
+        st_michel= Room("Saint-Michel", "Description")
+        self.rooms.append(st_michel)
+        surface = Room("Surface", "Description")
+        self.rooms.append(surface)
+        aeroport = Room("Aéroport Charles de Gaulle", "Description")
+        self.rooms.append(aeroport)
 
         # Create exits for rooms
 
-        forest.exits = {"N" : cave, "E" : "interdit", "S" : castle, "O" : None}
-        tower.exits = {"N" : cottage, "E" : None, "S" : "unique", "O" : "interdit"}
-        cave.exits = {"N" : None, "E" : cottage, "S" : forest, "O" : None}
-        cottage.exits = {"N" : None, "E" : None, "S" : tower, "O" : cave}
-        swamp.exits = {"N" : tower, "E" : None, "S" : None, "O" : castle}
-        castle.exits = {"N" : forest, "E" : swamp, "S" : None, "O" : None}
+
+        champs.exits = {"13" : lazare, "1V" : chatelet, "1D" : cdg, "C" : st_michel, "monter" : surface}
+        lazare.exits = {"13" : champs, "14" : chatelet, "E" : paris_nord, "monter" : surface}
+        chatelet.exits = {"1D" : champs, "A" : cdg, "B" : aeroport, "monter" : surface}
+        cdg.exits = {"1V" : champs, "A" : chatelet, "monter" : surface}
+        st_michel.exits = {"C" : champs, "B" : aeroport, "monter" : surface}
+        paris_nord.exits = {"E" : lazare, "B" : aeroport, "monter" : surface}
+        aeroport.exits = {"BN" : paris_nord, "BC" : chatelet, "BM" : st_michel, "monter" : surface}
+
 
         # Setup player and starting room
 
+
         self.player = Player(input("\nEntrez votre nom: "))
-        self.player.current_room = swamp
+        self.player.current_room = champs
 
 
     # Play the game
