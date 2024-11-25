@@ -33,7 +33,7 @@ class Game:
         
         champs = Room("champs-elysees", "dans la station des champs")
         self.rooms.append(champs)
-        lazare = Room("lazare", "Description")
+        lazare = Room("lazare", "dans la gare de Saint Lazare")
         self.rooms.append(lazare)
         cdg = Room("Charles de Gaulle - étoile  ", "Description")
         self.rooms.append(cdg)
