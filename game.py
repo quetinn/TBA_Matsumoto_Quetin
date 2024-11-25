@@ -31,7 +31,7 @@ class Game:
 
         # Setup rooms
         
-        champs = Room("champs-elysees", "Description")
+        champs = Room("champs-elysees", "dans la station des champs")
         self.rooms.append(champs)
         lazare = Room("lazare", "Description")
         self.rooms.append(lazare)
