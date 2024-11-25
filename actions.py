@@ -56,7 +56,10 @@ class Actions:
         # Get the direction from the list of words.
         direction = list_of_words[1]
         # Move the player in the direction specified by the parameter.
-        player.move(direction)
+        try:
+            player.move(direction)
+        except KeyError:
+            print("\n Direction inconnue. \n")
         return True
 
     def quit(game, list_of_words, number_of_parameters):

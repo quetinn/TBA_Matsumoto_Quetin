@@ -15,7 +15,7 @@ class Room:
         if direction in self.exits.keys():
             return self.exits[direction]
         else:
-            return None
+            None
     
     # Return a string describing the room's exits.
     def get_exit_string(self):

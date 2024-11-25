@@ -31,21 +31,21 @@ class Game:
 
         # Setup rooms
         
-        champs = Room("champs-elysees", "dans la station des champs")
+        champs = Room("champs", "dans la station Champs-Elysees Clemenceau")
         self.rooms.append(champs)
         lazare = Room("lazare", "dans la gare de Saint Lazare")
         self.rooms.append(lazare)
-        cdg = Room("Charles de Gaulle - étoile  ", "Description")
+        cdg = Room("Charles de Gaulle - étoile  ", "dans la station Charles de Gaulle")
         self.rooms.append(cdg)
-        chatelet = Room("Châtelet", "Description")
+        chatelet = Room("Châtelet", "dans la station de Chatelet")
         self.rooms.append(chatelet)
-        paris_nord = Room("Paris Gare du Nord", "Description")
+        paris_nord = Room("Paris Gare du Nord", "dans la Gare du Nord")
         self.rooms.append(paris_nord)
-        st_michel= Room("Saint-Michel", "Description")
+        st_michel= Room("Saint-Michel", "dans la stationd de Saint Michel Notre-Dame")
         self.rooms.append(st_michel)
-        surface = Room("Surface", "Description")
+        surface = Room("Surface", "dans la surface")
         self.rooms.append(surface)
-        aeroport = Room("Aéroport Charles de Gaulle", "Description")
+        aeroport = Room("Aéroport Charles de Gaulle", "dans l'aeroport. Felicitations !")
         self.rooms.append(aeroport)
 
         # Create exits for rooms

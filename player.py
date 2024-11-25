@@ -1,9 +1,3 @@
-
-
-
-
-
-
 # Define the Player class.
 class Player():
 
