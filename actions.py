@@ -53,13 +53,56 @@ class Actions:
             print(MSG1.format(command_word=command_word))
             return False
 
+        # Listes des ecritures possibles pour les directions
+        rerA = ["A", "a", "RERA", "rerA", "rera"]
+        rerB = ["B", "b", "RERB", "rerB", "rerb"]
+        rerBN = ["BN", "bn", "RERBN", "rerBN", "rerbn","B-N"]
+        rerBC = ["BC", "bc", "RERBC", "rerBC", "rerbc","B-C"]
+        rerBM = ["BM", "bm", "RERBM", "rerBM", "rerbm", "B-M"]
+        rerC = ["C", "c", "RERC", "rerC", "rerc"]
+        rerE = ["E", "e", "RERE", "rerE", "rere"]
+        Mtreize = ["13", "treize", "Treize", "TREIZE", 'metro13', "METRO13", "métro13","M13"]
+        Mquatorze = ["14", "quatorze", "Quatorze", "QUATORZE", "metro14", "METRO14", "métro14","M14"]
+        MuneD = ["1D", "uneD", "1D", "unD", "metro1D", "METRO1D", "métro1D", "1-D","M1-D"]
+        MuneV = ["1V", "uneV", "1V", "unV", "metro1V", "METRO1V", "métro1V", "1-V", "M1-V"]
+        Surface = ["sortir", "Sortir", "SORTIR"]
+
         # Get the direction from the list of words.
-        direction = list_of_words[1]
+        if list_of_words[1] in rerA:
+            direction = "A"
+        elif list_of_words[1] in rerB:
+            direction = "B"
+        elif list_of_words[1] in rerBN:
+            direction = "B-N"
+        elif list_of_words[1] in rerBC:
+            direction = "B-C"
+        elif list_of_words[1] in rerBM:
+            direction = "B-M"
+        elif list_of_words[1] in rerC:
+            direction = "C"
+        elif list_of_words[1] in rerE:
+            direction = "E"
+        elif list_of_words[1] in Mtreize:
+            direction = "13"
+        elif list_of_words[1] in Mquatorze:
+            direction = "14"
+        elif list_of_words[1] in MuneD:
+            direction = "1-D"
+        elif list_of_words[1] in MuneV:
+            direction = "1-V"
+        elif list_of_words[1] in Surface:
+            direction = "sortir"
+        elif list_of_words[1] == "redescendre":
+            direction = "redescendre"
+        #direction = list_of_words[1]
+
         # Move the player in the direction specified by the parameter.
         try:
             player.move(direction)
-        except KeyError:
+        except UnboundLocalError:
             print("\n Direction inconnue. \n")
+        except KeyError:
+            print("\n Ligne indisponible dans cette station. \n")
         return True
 
     def quit(game, list_of_words, number_of_parameters):
