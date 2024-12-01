@@ -31,36 +31,39 @@ class Game:
 
         # Setup rooms
         
-        champs = Room("champs-elysees", "dans la station des champs")
+        champs = Room("champs", "dans la station Champs-Elysees Clemenceau")
         self.rooms.append(champs)
         lazare = Room("lazare", "dans la gare de Saint Lazare")
         self.rooms.append(lazare)
-        cdg = Room("Charles de Gaulle - étoile  ", "Description")
+        cdg = Room("Charles de Gaulle - étoile  ", "dans la station Charles de Gaulle")
         self.rooms.append(cdg)
-        chatelet = Room("Châtelet", "Description")
+        chatelet = Room("Châtelet", "dans la station de Chatelet")
         self.rooms.append(chatelet)
-        paris_nord = Room("Paris Gare du Nord", "Description")
+        paris_nord = Room("Paris Gare du Nord", "dans la Gare du Nord")
         self.rooms.append(paris_nord)
-        st_michel= Room("Saint-Michel", "Description")
+        st_michel= Room("Saint-Michel", "dans la stationd de Saint Michel Notre-Dame")
         self.rooms.append(st_michel)
-        surface = Room("Surface", "Description")
+        surface = Room("Surface", "à la surface")
         self.rooms.append(surface)
-        aeroport = Room("Aéroport Charles de Gaulle", "Description")
+        aeroport = Room("Aéroport Charles de Gaulle", "dans l'aeroport. Felicitations !")
         self.rooms.append(aeroport)
 
         # Create exits for rooms
-        champs.exits = {"13" : lazare, "1V" : chatelet, "1D" : cdg, "C" : st_michel, "monter" : surface}
-        lazare.exits = {"13" : champs, "14" : chatelet, "E" : paris_nord, "monter" : surface}
-        chatelet.exits = {"1D" : champs, "A" : cdg, "B" : aeroport, "monter" : surface}
-        cdg.exits = {"1V" : champs, "A" : chatelet, "monter" : surface}
-        st_michel.exits = {"C" : champs, "B" : aeroport, "monter" : surface}
-        paris_nord.exits = {"E" : lazare, "B" : aeroport, "monter" : surface}
-        aeroport.exits = {"BN" : paris_nord, "BC" : chatelet, "BM" : st_michel, "monter" : surface}
+        champs.exits = {"13" : lazare, "1-V" : chatelet, "1-D" : cdg, "C" : st_michel, "sortir" : surface}
+        lazare.exits = {"13" : champs, "14" : chatelet, "E" : paris_nord, "sortir" : surface}
+        chatelet.exits = {"1-D" : champs, "A" : cdg, "B" : aeroport, "sortir" : surface}
+        cdg.exits = {"1-V" : champs, "A" : chatelet, "sortir" : surface}
+        st_michel.exits = {"C" : champs, "B" : aeroport, "sortir" : surface}
+        paris_nord.exits = {"E" : lazare, "B" : aeroport, "sortir" : surface}
+        aeroport.exits = {"B-N" : paris_nord, "B-C" : chatelet, "B-M" : st_michel, "sortir" : surface}
 
         # Setup player and starting room
 
         self.player = Player(input("\nEntrez votre nom: "))
         self.player.current_room = champs
+        ##self.player.previous_room = self.player.current_room
+        ##retour = self.player.previous_room
+        ##surface.exits = {"redescendre" : retour}
 
 
     # Play the game
@@ -94,8 +97,8 @@ class Game:
     # Print the welcome message
     def print_welcome(self):
         print(f"\nBienvenue {self.player.name} dans ce jeu d'aventure !")
-        print("Entrez 'help' si vous avez besoin d'aide.")
-        #
+        print("\nEntrez 'help' si vous avez besoin d'aide.")
+        print("\nVous etes un espion americain avec des informations confidentielles revelant la corruption du gouvernement francais. Vous etes poursuivi et vous avez pour objectif d'atteindre l'aeroport de Roissy afin de vous echapper. Cependant, il faut vous faire discret : vous devez vous deplacer dans les lignes parisiennes (RER ou metro) en sous-terrain. Bonne chance.")
         print(self.player.current_room.get_long_description())
 
 

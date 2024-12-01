@@ -15,11 +15,11 @@ class Room:
         if direction in self.exits.keys():
             return self.exits[direction]
         else:
-            return None
+            None
     
     # Return a string describing the room's exits.
     def get_exit_string(self):
-        exit_string = "Sorties: " 
+        exit_string = "Lignes accessibles: " 
         for exit in self.exits.keys():
             if self.exits.get(exit) is not None:
                 exit_string += exit + ", "
