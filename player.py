@@ -28,27 +28,29 @@ class Player():
             return False
 
         # Set the current room to the next room.
-        self.history.append(self.current_room.name)
-        self.previous_room = self.current_room
+        self.history.append(self.current_room)
         self.current_room = next_room
         print(self.current_room.get_long_description(),"\n",self.get_history())
         return True
 
     def get_history(self):
         history_string = "Vous avez déja visité les endroits suivants :\n"
-        for nom in self.history :
-            history_string += "\t- " + nom + "\n"
+        for station in self.history :
+            history_string += "\t- " + station.name + "\n"
         history_string = history_string.strip(",")
         return history_string
     
     def back(self):
         if len(self.history) <= 1 :
-            print("\nVous etes revenu au point de depart")
-            print(self.previous_room.get_long_description())
+            print("\nVous etes revenu au point de depart.")
+            try :
+                self.current_room = self.history.pop()
+            except IndexError :
+                print("\nVous ne pouvez plus revenir en arriere !")
+            print(self.current_room.get_long_description())
             return True
         else :
-            self.history.pop()
-            self.current_room = self.previous_room
+            self.current_room = self.history.pop()
             print(self.current_room.get_long_description(),"\n",self.get_history())
             return True
 
