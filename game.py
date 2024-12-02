@@ -28,12 +28,14 @@ class Game:
         self.commands["quit"] = quit
         go = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O)", Actions.go, 1)
         self.commands["go"] = go
+        history = Command("history", " : affiche l'historique des lieux visites", Player.get_history, 1)
+        self.commands["history"] = history
 
         # Setup rooms
         
-        champs = Room("champs", "dans la station Champs-Elysees Clemenceau")
+        champs = Room("Champs Elysees Clemenceau", "dans la station Champs-Elysees Clemenceau")
         self.rooms.append(champs)
-        lazare = Room("lazare", "dans la gare de Saint Lazare")
+        lazare = Room("Gare de Saint-Lazare", "dans la gare de Saint Lazare")
         self.rooms.append(lazare)
         cdg = Room("Charles de Gaulle - étoile  ", "dans la station Charles de Gaulle")
         self.rooms.append(cdg)
