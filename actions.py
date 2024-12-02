@@ -119,7 +119,6 @@ class Actions:
             print(MSG0.format(command_word=command_word))
             return False
         player.back()
-        print(f"\n{player.get_history()}")
         return 
 
     def quit(game, list_of_words, number_of_parameters):

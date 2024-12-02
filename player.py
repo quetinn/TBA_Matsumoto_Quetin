@@ -43,10 +43,13 @@ class Player():
     
     def back(self):
         if len(self.history) <= 1 :
-            return False
+            print("\nVous etes revenu au point de depart")
+            print(self.previous_room.get_long_description())
+            return True
         else :
-            print(self.history.pop())
+            self.history.pop()
             self.current_room = self.previous_room
+            print(self.current_room.get_long_description(),"\n",self.get_history())
             return True
 
     
