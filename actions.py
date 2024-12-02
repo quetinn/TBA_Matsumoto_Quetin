@@ -54,18 +54,22 @@ class Actions:
             return False
 
         # Listes des ecritures possibles pour les directions
-        rerA = ["A", "a", "RERA", "rerA", "rera"]
-        rerB = ["B", "b", "RERB", "rerB", "rerb"]
+        rerA = ["A", "a", "RERA", "rerA", "rera","ligneA"]
+        rerB = ["B", "b", "RERB", "rerB", "rerb","ligneB"]
         rerBN = ["BN", "bn", "RERBN", "rerBN", "rerbn","B-N"]
         rerBC = ["BC", "bc", "RERBC", "rerBC", "rerbc","B-C"]
         rerBM = ["BM", "bm", "RERBM", "rerBM", "rerbm", "B-M"]
-        rerC = ["C", "c", "RERC", "rerC", "rerc"]
-        rerE = ["E", "e", "RERE", "rerE", "rere"]
-        Mtreize = ["13", "treize", "Treize", "TREIZE", 'metro13', "METRO13", "métro13","M13"]
-        Mquatorze = ["14", "quatorze", "Quatorze", "QUATORZE", "metro14", "METRO14", "métro14","M14"]
+        rerC = ["C", "c", "RERC", "rerC", "rerc","ligneC"]
+        rerE = ["E", "e", "RERE", "rerE", "rere","ligneE"]
+        Mtreize = ["13", "treize", "Treize", "TREIZE", 'metro13', "METRO13", "métro13","M13","ligne13"]
+        Mquatorze = ["14", "quatorze", "Quatorze", "QUATORZE", "metro14", "METRO14", "métro14","M14","ligne14"]
         MuneD = ["1D", "uneD", "1D", "unD", "metro1D", "METRO1D", "métro1D", "1-D","M1-D"]
         MuneV = ["1V", "uneV", "1V", "unV", "metro1V", "METRO1V", "métro1V", "1-V", "M1-V"]
         Surface = ["sortir", "Sortir", "SORTIR"]
+        red = ["redescendre", "Redescendre", "REDESCNDRE"]
+        Catacombes = ["descendre", "DESCENDRE", "Descendre"]
+        rem = ["remonter", "Remonter", "REMONTER"]
+
 
         # Get the direction from the list of words.
         if list_of_words[1] in rerA:
@@ -92,9 +96,12 @@ class Actions:
             direction = "1-V"
         elif list_of_words[1] in Surface:
             direction = "sortir"
-        elif list_of_words[1] == "redescendre":
+        elif list_of_words[1] in red:
             direction = "redescendre"
-        #direction = list_of_words[1]
+        elif list_of_words[1] in Catacombes:
+            direction = "descendre"
+        elif list_of_words[1] in rem:
+            direction = "remonter"
 
         # Move the player in the direction specified by the parameter.
         try:

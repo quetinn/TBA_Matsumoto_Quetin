@@ -41,21 +41,25 @@ class Game:
         self.rooms.append(chatelet)
         paris_nord = Room("Paris Gare du Nord", "dans la Gare du Nord")
         self.rooms.append(paris_nord)
-        st_michel= Room("Saint-Michel", "dans la stationd de Saint Michel Notre-Dame")
+        st_michel= Room("Saint-Michel", "dans la station Saint Michel Notre-Dame")
         self.rooms.append(st_michel)
+        catacombes = Room("Les Catacombes de Paris", "dans les catacombes de Paris")
+        self.rooms.append(catacombes)
         surface = Room("Surface", "à la surface")
         self.rooms.append(surface)
         aeroport = Room("Aéroport Charles de Gaulle", "dans l'aeroport. Felicitations !")
         self.rooms.append(aeroport)
 
         # Create exits for rooms
-        champs.exits = {"13" : lazare, "1-V" : chatelet, "1-D" : cdg, "C" : st_michel, "sortir" : surface}
-        lazare.exits = {"13" : champs, "14" : chatelet, "E" : paris_nord, "sortir" : surface}
-        chatelet.exits = {"1-D" : champs, "A" : cdg, "B" : aeroport, "sortir" : surface}
-        cdg.exits = {"1-V" : champs, "A" : chatelet, "sortir" : surface}
-        st_michel.exits = {"C" : champs, "B" : aeroport, "sortir" : surface}
+        champs.exits = {"13" : lazare, "1-V" : chatelet, "1-D" : cdg, "C" : st_michel}
+        lazare.exits = {"13" : champs, "14" : chatelet, "E" : paris_nord}
+        chatelet.exits = {"1-D" : champs, "A" : cdg, "B" : aeroport}
+        cdg.exits = {"1-V" : champs, "A" : chatelet}
+        st_michel.exits = {"C" : champs, "B" : aeroport, "descendre" : catacombes}
         paris_nord.exits = {"E" : lazare, "B" : aeroport, "sortir" : surface}
-        aeroport.exits = {"B-N" : paris_nord, "B-C" : chatelet, "B-M" : st_michel, "sortir" : surface}
+        surface.exits = {"redescendre" : paris_nord}
+        catacombes.exits = {"remonter" : st_michel}
+        aeroport.exits = {"B-N" : paris_nord, "B-C" : chatelet, "B-M" : st_michel}
 
         # Setup player and starting room
 
