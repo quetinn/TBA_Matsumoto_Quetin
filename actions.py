@@ -53,44 +53,27 @@ class Actions:
             print(MSG1.format(command_word=command_word))
             return False
 
-        # Listes des ecritures possibles pour les directions
-        rerA = ["a", "rera","lignea"]
-        rerB = ["b", "rerb","ligneb"]
-        rerBN = ["bn", "rerbn","b-n"]
-        rerBC = ["bc", "rerbc", "b-c"]
-        rerBM = ["bm", "rerbm", "b-m"]
-        rerC = ["c", "rerc","lignec"]
-        rerE = ["e", "rere", "lignee"]
-        Mtreize = ["13", "treize", 'metro13', "métro13","m13","ligne13"]
-        Mquatorze = ["14", "quatorze", "metro14", "métro14","m14","ligne14"]
-        MuneD = ["1d", "uned", "und", "metro1d", "métro1d", "1-d","m1-d"]
-        MuneV = ["1v", "unev", "unv", "metro1v", "métro1v", "1-v", "m1-v"]
+        # Dictionnaire des ecritures possibles pour les directions
+        ecriture = {
+            "a":"A","rera":"A","lignea":"A",
+            "b":"B", "rerb":"B","ligneb":"B",
+            "bn":"B-N", "rerbn":"B-N","b-n":"B-N",
+            "bc":"B-C", "rerbc":"B-C", "b-c":"B-C",
+            "bm":"B-M", "rerbm":"B-M", "b-m":"B-M",
+            "c":"C", "rerc":"C","lignec":"C",
+            "e":"E", "rere":"E", "lignee":"E",
+            "13":"13", "treize":"13", 'metro13':"13", "métro13":"13","m13":"13","ligne13":"13",
+            "14":"14", "quatorze":"14", "metro14":"14", "métro14":"14","m14":"14","ligne14":"14",
+            "1d":"1-D", "uned":"1-D", "und":"1-D", "metro1d":"1-D", "métro1d":"1-D", "1-d":"1-D","m1-d":"1-D",
+            "1v":"1-V", "unev":"1-V", "unv":"1-V", "metro1v":"1-V", "métro1v":"1-V", "1-v":"1-V", "m1-v":"1-V",
+            "descendre":"descendre","sortir":"sortir","remonter":"remonter","redescendre":"redescendre",
+            "d":"descendre","s":"sortir"
+        }
 
         # Get the direction from the list of words.
-        if list_of_words[1].lower() in rerA:
-            direction = "A"
-        elif list_of_words[1].lower() in rerB:
-            direction = "B"
-        elif list_of_words[1].lower() in rerBN:
-            direction = "B-N"
-        elif list_of_words[1].lower() in rerBC:
-            direction = "B-C"
-        elif list_of_words[1].lower() in rerBM:
-            direction = "B-M"
-        elif list_of_words[1].lower() in rerC:
-            direction = "C"
-        elif list_of_words[1].lower() in rerE:
-            direction = "E"
-        elif list_of_words[1].lower() in Mtreize:
-            direction = "13"
-        elif list_of_words[1].lower() in Mquatorze:
-            direction = "14"
-        elif list_of_words[1].lower() in MuneD:
-            direction = "1-D"
-        elif list_of_words[1].lower() in MuneV:
-            direction = "1-V"
-        else :
-            direction = list_of_words[1].lower()
+        direction = list_of_words[1].lower()
+        if direction in ecriture:
+            direction = ecriture[direction]
 
         # Move the player in the direction specified by the parameter.
         try:

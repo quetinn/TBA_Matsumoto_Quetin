@@ -26,9 +26,9 @@ class Game:
         self.commands["help"] = help
         quit = Command("quit", " : quitter le jeu", Actions.quit, 0)
         self.commands["quit"] = quit
-        go = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O)", Actions.go, 1)
+        go = Command("go", " <direction> : se déplacer dans une direction (en utilisant les lignes de metro ou rer)", Actions.go, 1)
         self.commands["go"] = go
-        back = Command("back", " : Revenir en arriere", Actions.back, 0)
+        back = Command("back", " : revenir en arriere", Actions.back, 0)
         self.commands["back"] = back
         history = Command("history", " : affiche l'historique des lieux visites", Actions.history, 0)
         self.commands["history"] = history

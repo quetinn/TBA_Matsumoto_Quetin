@@ -51,6 +51,7 @@ class Player():
             return True
         else :
             self.current_room = self.history.pop()
+            print("\nVous etes revenu en arriere.")
             print(self.current_room.get_long_description(),"\n",self.get_history())
             return True
 
