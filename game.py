@@ -36,11 +36,11 @@ class Game:
         self.commands["history"] = history
         check = Command("check", " : affiche l'inventaire", Actions.check, 0)
         self.commands["check"] = check
-        look = Command("look", " : recherche les objets dans la piece", Actions.look,0)
+        look = Command("look", " : recherche les objets dans la station/lieu", Actions.look,0)
         self.commands["look"] = look
-        take = Command("take", " : prendre un objet", Actions.take,0)
+        take = Command("take", " <objet> : prendre un objet", Actions.take,1)
         self.commands["take"] = take
-        drop = Command("drop", " : reposer un objet", Actions.drop,0)
+        drop = Command("drop", " <objet> : reposer un objet", Actions.drop,1)
         self.commands["drop"] = drop
 
         # Setup rooms
@@ -65,9 +65,9 @@ class Game:
         self.rooms.append(aeroport)
 
         # create items in rooms
-        #sword = Item("sword", "une épée au fil tranchant comme un rasoir", 2)
-        #self.items.append(sword)
-        #cdg.add_item(sword)
+        sword = Item("Sword", "une épée au fil tranchant comme un rasoir", 2)
+        self.items.append(sword)
+        champs.inventory.add(sword)
 
         # Create exits for rooms
         champs.exits = {"13" : lazare, "1-V" : chatelet, "1-D" : cdg, "C" : st_michel}

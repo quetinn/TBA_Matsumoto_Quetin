@@ -28,9 +28,6 @@ class Room:
         return exit_string
     
     # return a string describing items in the room
-    #def add_item(self,game):
-        for objet in game.items :
-            self.inventory.add(objet.name)
 
     def get_inventory(self):
         if not self.inventory :
@@ -38,7 +35,7 @@ class Room:
         else :
             inventory_string = "La pièce contient :\n"
             for objet in self.inventory :
-                inventory_string += "\t- " + print(objet) + "\n"
+                inventory_string += "\t- " + f"{objet}" + "\n"
             inventory_string = inventory_string.strip(",")
             return inventory_string
 

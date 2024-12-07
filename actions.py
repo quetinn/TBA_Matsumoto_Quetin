@@ -206,11 +206,19 @@ class Actions:
         # If the number of parameters is incorrect, print an error message and return False.
         if l != number_of_parameters + 1:
             command_word = list_of_words[0]
-            print(MSG0.format(command_word=command_word))
+            print(MSG1.format(command_word=command_word))
             return False
-        item = game.item
-        game.player.inventory[item.name]=item
-        game.player.current_room.remove(item)
+        player = game.player
+        items = list_of_words[1].lower()
+        names = [obj.name.lower() for obj in player.current_room.inventory]
+        if items in names :
+            player.inventory[items]=items
+            player.current_room.inventory.remove(items)
+            print(f"\n{items} recupere.\n")
+        else :
+            print(f"\nPas de {items} dans cet endroit.\n")
+            print(player.current_room.inventory)
+            print(names)
         return True
 
     def drop(game, list_of_words, number_of_parameters):
@@ -218,9 +226,14 @@ class Actions:
         # If the number of parameters is incorrect, print an error message and return False.
         if l != number_of_parameters + 1:
             command_word = list_of_words[0]
-            print(MSG0.format(command_word=command_word))
+            print(MSG1.format(command_word=command_word))
             return False
-        item = game.item
-        del game.player.inventory["item.name"]
-        game.player.current_room.add(item)
+        player = game.player
+        items = list_of_words[1].lower()
+        if items in player.inventory :
+            del player.inventory[items]
+            player.current_room.inventory.add(items)
+            print(f"\nVous avez repose : {items}.\n")
+        else :
+            print(f"\nVous ne possedez pas de {items}.\n")
         return True
