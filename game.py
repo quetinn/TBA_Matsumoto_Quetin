@@ -7,6 +7,7 @@ from room import Room
 from player import Player
 from command import Command
 from actions import Actions
+from item import Item
 
 class Game:
 
@@ -16,6 +17,7 @@ class Game:
         self.rooms = []
         self.commands = {}
         self.player = None
+        self.items = []
 
     # Setup the game
     def setup(self):
@@ -32,6 +34,14 @@ class Game:
         self.commands["back"] = back
         history = Command("history", " : affiche l'historique des lieux visites", Actions.history, 0)
         self.commands["history"] = history
+        check = Command("check", " : affiche l'inventaire", Actions.check, 0)
+        self.commands["check"] = check
+        look = Command("look", " : recherche les objets dans la piece", Actions.look,0)
+        self.commands["look"] = look
+        take = Command("take", " : prendre un objet", Actions.take,0)
+        self.commands["take"] = take
+        drop = Command("drop", " : reposer un objet", Actions.drop,0)
+        self.commands["drop"] = drop
 
         # Setup rooms
         
@@ -53,6 +63,11 @@ class Game:
         self.rooms.append(surface)
         aeroport = Room("Aéroport Charles de Gaulle", "dans l'aeroport. Felicitations !")
         self.rooms.append(aeroport)
+
+        # create items in rooms
+        #sword = Item("sword", "une épée au fil tranchant comme un rasoir", 2)
+        #self.items.append(sword)
+        #cdg.add_item(sword)
 
         # Create exits for rooms
         champs.exits = {"13" : lazare, "1-V" : chatelet, "1-D" : cdg, "C" : st_michel}
