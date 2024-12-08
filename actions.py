@@ -210,16 +210,30 @@ class Actions:
             return False
         
         player = game.player
-        name_item = list_of_words[1].lower()
+        name_item = list_of_words[1].capitalize()
+        total_weight = 0
+
+        for poids in player.inventory.values() :
+            total_weight += poids.weight
 
         for item in player.current_room.inventory :
-            if name_item == item.name.lower() :
+            if name_item == item.name :
+
+                total_weight += item.weight
+                if total_weight > player.max_weight :
+                    print("\nLimite d'objet atteinte, il faut deposer un objet avant d'en prendre un nouveau.\n")
+                    return True
+                
                 player.inventory[item.name]=item
                 player.current_room.inventory.remove(item)
-                print(f"\n{item.name} récupéré.\n")
+                print(f"\nVous avez pris : {item.name}.\n")
+                print(player.inventory)
                 return True
-        print(f"\nPas de {name_item} dans cet endroit.\n")
-        return False
+        if name_item in player.inventory:
+                print(f"\nL'objet '{name_item}' se trouve deja dans votre inventaire.\n")
+        else :
+            print(f"\nL'objet '{name_item}' n'est pas dans cet endroit.\n")
+        return True
 
     def drop(game, list_of_words, number_of_parameters):
         l = len(list_of_words)
@@ -228,12 +242,14 @@ class Actions:
             command_word = list_of_words[0]
             print(MSG1.format(command_word=command_word))
             return False
+
         player = game.player
-        items = list_of_words[1].lower()
-        if items in player.inventory :
-            del player.inventory[items]
-            player.current_room.inventory.add(items)
-            print(f"\nVous avez repose : {items}.\n")
+        name_item = list_of_words[1].capitalize()
+
+        if name_item in player.inventory :
+            item = player.inventory.pop(name_item)
+            player.current_room.inventory.add(item)
+            print(f"\nVous avez déposé : {item.name}.\n")
         else :
-            print(f"\nVous ne possedez pas de {items}.\n")
+            print(f"\nVous ne possedez pas de {name_item}.\n")
         return True

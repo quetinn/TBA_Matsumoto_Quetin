@@ -63,10 +63,16 @@ class Game:
         aeroport = Room("Aéroport Charles de Gaulle", "dans l'aeroport. Felicitations !")
         self.rooms.append(aeroport)
 
-        # create items in rooms
-        sword = Item("Sword", "une épée au fil tranchant comme un rasoir", 2)
+        # Setup items in rooms
+        sword = Item("Sword", "une épée au fil tranchant comme un rasoir", 3)
         self.items.append(sword)
-        champs.inventory.add(sword)
+        chatelet.inventory.add(sword)
+        passe = Item("Passe", "un passe Navigo qui donne acces aux trains", 1)
+        self.items.append(passe)
+        champs.inventory.add(passe)
+        caca = Item("Caca", "un caca", 2)
+        self.items.append(caca)
+        cdg.inventory.add(caca)
 
         # Create exits for rooms
         champs.exits = {"13" : lazare, "1-V" : chatelet, "1-D" : cdg, "C" : st_michel}

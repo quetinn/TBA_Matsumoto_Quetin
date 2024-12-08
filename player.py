@@ -8,6 +8,7 @@ class Player():
         self.previous_room = None
         self.history = []
         self.inventory = dict()
+        self.max_weight = 3
     
     # Define the move method.
     def move(self, direction):
@@ -54,10 +55,6 @@ class Player():
             print("\nVous etes revenu en arriere.")
             print(f"{self.current_room.get_long_description()}\n{self.get_history()}")
             return True
-    
-    #def get_item(self,game):
-        item = game.item
-        self.inventory[item.name]=item
 
     def get_inventory(self):
         if not self.inventory :
