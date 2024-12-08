@@ -208,18 +208,18 @@ class Actions:
             command_word = list_of_words[0]
             print(MSG1.format(command_word=command_word))
             return False
+        
         player = game.player
-        items = list_of_words[1].lower()
-        names = [obj.name.lower() for obj in player.current_room.inventory]
-        if items in names :
-            player.inventory[items]=items
-            player.current_room.inventory.remove(items)
-            print(f"\n{items} recupere.\n")
-        else :
-            print(f"\nPas de {items} dans cet endroit.\n")
-            print(player.current_room.inventory)
-            print(names)
-        return True
+        name_item = list_of_words[1].lower()
+
+        for item in player.current_room.inventory :
+            if name_item == item.name.lower() :
+                player.inventory[item.name]=item
+                player.current_room.inventory.remove(item)
+                print(f"\n{item.name} récupéré.\n")
+                return True
+        print(f"\nPas de {name_item} dans cet endroit.\n")
+        return False
 
     def drop(game, list_of_words, number_of_parameters):
         l = len(list_of_words)

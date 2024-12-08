@@ -35,7 +35,7 @@ class Room:
         else :
             inventory_string = "La pièce contient :\n"
             for objet in self.inventory :
-                inventory_string += "\t- " + f"{objet}" + "\n"
+                inventory_string += "\t- " + str(objet) + "\n"
             inventory_string = inventory_string.strip(",")
             return inventory_string
 

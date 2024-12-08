@@ -7,7 +7,7 @@ class Player():
         self.current_room = None
         self.previous_room = None
         self.history = []
-        self.inventory = {}
+        self.inventory = dict()
     
     # Define the move method.
     def move(self, direction):
@@ -64,8 +64,8 @@ class Player():
             return "Votre inventaire est vide.\n"
         else :
             inventory_string = "Vous disposez des items suivants :\n"
-            for objet in self.inventory :
-                inventory_string += "\t- " + print(objet) + "\n"
+            for objet in self.inventory.values() :
+                inventory_string += "\t- " + str(objet) + "\n"
             inventory_string = inventory_string.strip(",")
             return inventory_string
 

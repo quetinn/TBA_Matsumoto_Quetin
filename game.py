@@ -1,4 +1,3 @@
-        
 # Description: Game class
 
 # Import modules
