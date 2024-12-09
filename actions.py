@@ -89,7 +89,7 @@ class Actions:
             direction = "1-D"
         elif list_of_words[1].lower() in MuneV:
             direction = "1-V"
-        else : 
+        else :
             direction = list_of_words[1].lower()
 
         # Move the player in the direction specified by the parameter.
@@ -98,6 +98,29 @@ class Actions:
         except KeyError:
             print("\n Direction inconnue. \n")
         return True
+    
+
+    def history(game, list_of_words, number_of_parameters):
+        l = len(list_of_words)
+        # If the number of parameters is incorrect, print an error message and return False.
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+        print(f"\n{game.player.get_history()}")
+
+
+    def back(game, list_of_words, number_of_parameters):
+        player = game.player
+        l = len(list_of_words)
+        # If the number of parameters is incorrect, print an error message and return False.
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+        player.back()
+        print(f"\n{player.get_history()}")
+        return 
 
     def quit(game, list_of_words, number_of_parameters):
         """
