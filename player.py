@@ -5,7 +5,6 @@ class Player():
     def __init__(self, name):
         self.name = name
         self.current_room = None
-        self.previous_room = None
         self.history = []
         self.inventory = dict()
         self.max_weight = 3

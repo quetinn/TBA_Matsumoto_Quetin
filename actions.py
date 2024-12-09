@@ -46,6 +46,7 @@ class Actions:
         """
         
         player = game.player
+        characters = game.character
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
         if l != number_of_parameters + 1:
@@ -77,7 +78,9 @@ class Actions:
 
         # Move the player in the direction specified by the parameter.
         try:
-            player.move(direction)
+            if player.move(direction):
+                characters.move()
+
         except KeyError:
             print("\n Direction inconnue. \n")
         return True
@@ -227,7 +230,6 @@ class Actions:
                 player.inventory[item.name]=item
                 player.current_room.inventory.remove(item)
                 print(f"\nVous avez pris : {item.name}.\n")
-                print(player.inventory)
                 return True
         if name_item in player.inventory:
                 print(f"\nL'objet '{name_item}' se trouve deja dans votre inventaire.\n")
