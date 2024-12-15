@@ -5,11 +5,13 @@ import random
 class Character:
 
     #Constructeur
-    def __init__(self, name, description, room, msgs):
+    def __init__(self, name, description, room, msgs, item=None, gift=None):
         self.name = name
         self.description = description
         self.current_room = room
         self.msgs = msgs
+        self.item_recquis = item
+        self.item_gift = gift
 
     # Representation string
     def __str__(self):
@@ -30,9 +32,18 @@ class Character:
             print(f"{self.name} se trouve encore dans {self.current_room.name}\n")
         return False 
     
-    def get_msg(self) :
+    def get_msg(self, player) :
         if not self.msgs :
             print(f"{self.name} ne veut pas vous parler.")
+        if self.name == "Chomeur" :
+            if self.item_gift:
+                if self.item_recquis.name not in player.inventory :
+                    return "J'ai tres faim... Je te donnerais un objet que j'ai trouve si tu me donnes de quoi manger."
+                else :
+                    return "Je le sens, t'as quelque chose pour moi! On echange?"
+            else :
+                self.msgs.append(self.msgs[0])
+                return self.msgs.pop(0)
         self.msgs.append(self.msgs[0])
         return self.msgs.pop(0)
     

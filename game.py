@@ -45,6 +45,8 @@ class Game:
         self.commands["drop"] = drop
         talk = Command("talk", " <PNJ> : parler avec le PNJ", Actions.talk,1)
         self.commands["talk"] = talk
+        exchange = Command("exchange", " <PNJ> : echanger avec le PNJ", Actions.exchange,1)
+        self.commands["exchange"] = exchange
 
         # Setup rooms
         
@@ -87,18 +89,25 @@ class Game:
         chatelet.inventory.add(sword)
         passe = Item("Passe", "un passe Navigo qui donne acces aux trains", 1)
         self.items.append(passe)
-        champs.inventory.add(passe)
+        #clemenceau.inventory.add(passe)
         caca = Item("Caca", "un caca", 2)
         self.items.append(caca)
         cdg.inventory.add(caca)
+        sandwich = Item("Sandwich", "un delicieux sandwich", 0.5)
+        self.items.append(sandwich)
+        clemenceau.inventory.add(sandwich)
 
         # Setup characters in rooms
-        chomeur = Character("Chomeur", "un chomeur affamé", clemenceau, ["J'ai tres faim... Si tu m'apportes a manger, je t'echange ce que tu rapportes","Merci."])
+        chomeur = Character("Chomeur", "un chomeur affamé", clemenceau, ["Merci encore pour le sandwich, vous me sauvez.","Ravi d'avoir fait affaire avec vous"], sandwich, passe)
         self.characters.append(chomeur)
         clemenceau.characters[chomeur.name]=chomeur
         policier = Character("Policier", "un policier francais a votre recherche", lazare, "VOUS ETES EN ETAT D'ARRESTATION !!!")
         self.characters.append(policier)
         lazare.characters[policier.name]=policier
+        boulanger = Character("Boulanger", "un boulanger sympathique", champs, ["Voulez-vous acheter un sandwich ? Ca sera 3 euros svp","Merci"])
+        self.characters.append(boulanger)
+        champs.characters[boulanger.name]=boulanger
+
 
         # Setup player and starting room
 
