@@ -289,7 +289,7 @@ class Actions:
             if nom_pnj == pnj.name:
                 if pnj.item_gift :
                     if pnj.item_recquis.name in player.inventory:
-                        print(f"\n- {pnj.name} : Merci pour le sandwich ! Voici un objet en échange.\n")
+                        print(f"\n- {pnj.name} : {pnj.item_recquis.name} ! Je vous remercie. Voici un objet en échange.\n")
                         # Donner un objet au joueur
                         player.inventory[pnj.item_gift.name] = pnj.item_gift
                         # Retirer l'objet donné
@@ -297,7 +297,7 @@ class Actions:
                         print(f"Vous avez recu l'objet: '{pnj.item_gift.name}'\n")
                         pnj.item_gift = None
                     else:
-                        print(f"\n- {pnj.name} : Je suis toujours affamé... Apporte-moi a manger.\n")
+                        print(f"\n- {pnj.name} : Tu n'as pas ce que je veux ... Apporte le moi.\n")
                     return True
                 else :
                     print("\nJe n'ai rien a echanger.\n")
