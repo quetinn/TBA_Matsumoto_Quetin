@@ -5,12 +5,11 @@ import random
 class Character:
 
     #Constructeur
-    def __init__(self, name, description, msgs):
+    def __init__(self, name, description, room, msgs):
         self.name = name
         self.description = description
-        self.current_room = None
+        self.current_room = room
         self.msgs = msgs
-        self.inventory = dict()
 
     # Representation string
     def __str__(self):
@@ -19,14 +18,21 @@ class Character:
     def move(self):
         deplacement = random.choice(["bouge","reste"])
         sorties = self.current_room.exits
-        direction = random.choice(sorties.keys())
-        for pnj in self.inventory.values() :
-            if deplacement == "bouge" and pnj.name == "Policier":
-                if not sorties :
-                    return False
-                next_room = pnj.current_room.exits[direction]
-                self.current_room = next_room
-                print(f"{pnj.name} se trouve maintenant dans {pnj.current_room}")
-                return True
-            print(f"{pnj.name} se trouve maintenant dans {pnj.current_room}")
-            return False 
+        direction = random.choice(list(sorties.keys()))
+        if deplacement == "bouge":
+            if not sorties :
+                return False
+            next_room = self.current_room.exits[direction]
+            self.current_room = next_room
+            print(f"{self.name} se trouve maintenant dans {self.current_room.name}\n")
+            return True
+        else :
+            print(f"{self.name} se trouve encore dans {self.current_room.name}\n")
+        return False 
+    
+    def get_msg(self) :
+        if not self.msgs :
+            print(f"{self.name} ne veut pas vous parler.")
+        self.msgs.append(self.msgs[0])
+        return self.msgs.pop(0)
+    

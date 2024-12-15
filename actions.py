@@ -46,7 +46,7 @@ class Actions:
         """
         
         player = game.player
-        characters = game.character
+        characters = game.characters
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
         if l != number_of_parameters + 1:
@@ -78,8 +78,9 @@ class Actions:
 
         # Move the player in the direction specified by the parameter.
         try:
-            if player.move(direction):
-                characters.move()
+            player.move(direction)
+               # for pnj in characters:
+                #    pnj.move()
 
         except KeyError:
             print("\n Direction inconnue. \n")
@@ -255,3 +256,20 @@ class Actions:
         else :
             print(f"\nVous ne possedez pas de {name_item}.\n")
         return True
+    
+    def talk(game, list_of_words, number_of_parameters):
+        l = len(list_of_words)
+        # If the number of parameters is incorrect, print an error message and return False.
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+        characters = game.player.current_room.characters.values()
+        #character correspond aux pnj presents dans la meme room que le joueur
+        nom_pnj = list_of_words[1].capitalize()
+        for pnj in characters:
+            if nom_pnj == pnj.name :
+                print(f"\n{pnj.values.get_msg()}")
+            else :
+                print(f"\nIl n'y a personne avec le nom : {nom_pnj} dans cet endroit.\n")
+            return True

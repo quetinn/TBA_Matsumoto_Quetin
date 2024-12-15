@@ -43,6 +43,8 @@ class Game:
         self.commands["take"] = take
         drop = Command("drop", " <objet> : reposer un objet", Actions.drop,1)
         self.commands["drop"] = drop
+        talk = Command("talk", " <PNJ> : parler avec le PNJ", Actions.talk,1)
+        self.commands["talk"] = talk
 
         # Setup rooms
         
@@ -91,10 +93,10 @@ class Game:
         cdg.inventory.add(caca)
 
         # Setup characters in rooms
-        chomeur = Character("Chomeur", "un chomeur affamé", "J'ai tres faim... Si tu m'apportes a manger, je t'echange ce que tu rapportes")
+        chomeur = Character("Chomeur", "un chomeur affamé", clemenceau, ["J'ai tres faim... Si tu m'apportes a manger, je t'echange ce que tu rapportes","Merci."])
         self.characters.append(chomeur)
         clemenceau.characters[chomeur.name]=chomeur
-        policier = Character("Policier", "un policier francais a votre recherche", "VOUS ETES EN ETAT D'ARRESTATION !!!")
+        policier = Character("Policier", "un policier francais a votre recherche", lazare, "VOUS ETES EN ETAT D'ARRESTATION !!!")
         self.characters.append(policier)
         lazare.characters[policier.name]=policier
 
