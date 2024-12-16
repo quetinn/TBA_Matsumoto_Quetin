@@ -1,4 +1,3 @@
-        
 # Description: Game class
 
 # Import modules
@@ -7,6 +6,7 @@ from room import Room
 from player import Player
 from command import Command
 from actions import Actions
+from item import Item
 
 class Game:
 
@@ -16,6 +16,7 @@ class Game:
         self.rooms = []
         self.commands = {}
         self.player = None
+        self.items = []
 
     # Setup the game
     def setup(self):
@@ -26,12 +27,20 @@ class Game:
         self.commands["help"] = help
         quit = Command("quit", " : quitter le jeu", Actions.quit, 0)
         self.commands["quit"] = quit
-        go = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O)", Actions.go, 1)
+        go = Command("go", " <direction> : se déplacer dans une direction (en utilisant les lignes de metro ou rer)", Actions.go, 1)
         self.commands["go"] = go
-        back = Command("back", " : Revenir en arriere", Actions.back, 0)
+        back = Command("back", " : revenir en arriere", Actions.back, 0)
         self.commands["back"] = back
         history = Command("history", " : affiche l'historique des lieux visites", Actions.history, 0)
         self.commands["history"] = history
+        check = Command("check", " : affiche l'inventaire", Actions.check, 0)
+        self.commands["check"] = check
+        look = Command("look", " : recherche les objets dans la station/lieu", Actions.look,0)
+        self.commands["look"] = look
+        take = Command("take", " <objet> : prendre un objet", Actions.take,1)
+        self.commands["take"] = take
+        drop = Command("drop", " <objet> : reposer un objet", Actions.drop,1)
+        self.commands["drop"] = drop
 
         # Setup rooms
         
@@ -53,6 +62,17 @@ class Game:
         self.rooms.append(surface)
         aeroport = Room("Aéroport Charles de Gaulle", "dans l'aeroport. Felicitations !")
         self.rooms.append(aeroport)
+
+        # Setup items in rooms
+        sword = Item("Sword", "une épée au fil tranchant comme un rasoir", 3)
+        self.items.append(sword)
+        chatelet.inventory.add(sword)
+        passe = Item("Passe", "un passe Navigo qui donne acces aux trains", 1)
+        self.items.append(passe)
+        champs.inventory.add(passe)
+        caca = Item("Caca", "un caca", 2)
+        self.items.append(caca)
+        cdg.inventory.add(caca)
 
         # Create exits for rooms
         champs.exits = {"13" : lazare, "1-V" : chatelet, "1-D" : cdg, "C" : st_michel}
