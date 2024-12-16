@@ -73,15 +73,14 @@ class Actions:
 
         # Get the direction from the list of words.
         direction = list_of_words[1].lower()
-        if direction in ecriture:
-            direction = ecriture[direction]
+        direction = ecriture.get(direction,"key error")
 
         # Move the player in the direction specified by the parameter.
         try:
-            player.move(direction)
-               # for pnj in characters:
-                #    pnj.move()
-
+            if player.move(direction,player):
+                for pnj in characters:
+                    if pnj.name == "Policier":
+                        pnj.move()
         except KeyError:
             print("\n Direction inconnue. \n")
         return True
@@ -288,12 +287,12 @@ class Actions:
         for pnj in characters:
             if nom_pnj == pnj.name:
                 if pnj.item_gift :
-                    if pnj.item_recquis.name in player.inventory:
-                        print(f"\n- {pnj.name} : {pnj.item_recquis.name} ! Je vous remercie. Voici un objet en échange.\n")
+                    if pnj.item_required.name in player.inventory:
+                        print(f"\n- {pnj.name} : {pnj.item_required.name} ! Je vous remercie. Voici un objet en échange.\n")
                         # Donner un objet au joueur
                         player.inventory[pnj.item_gift.name] = pnj.item_gift
                         # Retirer l'objet donné
-                        player.inventory.pop(pnj.item_recquis.name)
+                        player.inventory.pop(pnj.item_required.name)
                         print(f"Vous avez recu l'objet: '{pnj.item_gift.name}'\n")
                         pnj.item_gift = None
                     else:
@@ -305,4 +304,4 @@ class Actions:
             else :
                 print("\nVous ne pouvez pas echanger.\n")
                 return True
-        return False
+        return False 

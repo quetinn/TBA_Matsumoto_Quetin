@@ -10,7 +10,7 @@ class Character:
         self.description = description
         self.current_room = room
         self.msgs = msgs
-        self.item_recquis = item
+        self.item_required = item
         self.item_gift = gift
 
     # Representation string
@@ -25,7 +25,10 @@ class Character:
             if not sorties :
                 return False
             next_room = self.current_room.exits[direction]
+            if self in self.current_room.inventory:
+                del self.current_room.inventory[self]
             self.current_room = next_room
+            next_room.inventory[self.name]=self
             print(f"{self.name} se trouve maintenant dans {self.current_room.name}\n")
             return True
         else :
@@ -37,7 +40,7 @@ class Character:
             print(f"{self.name} ne veut pas vous parler.")
         if self.name == "Chomeur" :
             if self.item_gift:
-                if self.item_recquis.name not in player.inventory :
+                if self.item_required.name not in player.inventory :
                     return "J'ai tres faim... Je te donnerais un objet que j'ai trouve si tu me donnes de quoi manger."
                 else :
                     return "Je le sens, t'as quelque chose pour moi! On echange?"
@@ -46,4 +49,3 @@ class Character:
                 return self.msgs.pop(0)
         self.msgs.append(self.msgs[0])
         return self.msgs.pop(0)
-    

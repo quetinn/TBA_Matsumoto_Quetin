@@ -10,7 +10,7 @@ class Player():
         self.max_weight = 3
     
     # Define the move method.
-    def move(self, direction):
+    def move(self, direction, player):
         # Get the next room from the exits dictionary of the current room.
         next_room = self.current_room.exits[direction]
 
@@ -26,7 +26,10 @@ class Player():
         if next_room == "unique":
             print("\nPassage a sens unique !\n")
             return False
-
+        objet_recquis = next_room.item_required
+        if objet_recquis and objet_recquis not in player.inventory.values() :
+            print("\nVous avez besoin d'un passe pour acceder aux trains.\n")
+            return False
         # Set the current room to the next room.
         self.history.append(self.current_room)
         self.current_room = next_room
@@ -64,5 +67,3 @@ class Player():
                 inventory_string += "\t- " + str(objet) + "\n"
             inventory_string = inventory_string.strip(",")
             return inventory_string
-
-    
