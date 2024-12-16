@@ -7,6 +7,7 @@ from player import Player
 from command import Command
 from actions import Actions
 from item import Item
+from character import Character
 
 class Game:
 
@@ -17,6 +18,7 @@ class Game:
         self.commands = {}
         self.player = None
         self.items = []
+        self.characters = []
 
     # Setup the game
     def setup(self):
@@ -41,41 +43,37 @@ class Game:
         self.commands["take"] = take
         drop = Command("drop", " <objet> : reposer un objet", Actions.drop,1)
         self.commands["drop"] = drop
+        talk = Command("talk", " <PNJ> : parler avec le PNJ", Actions.talk,1)
+        self.commands["talk"] = talk
+        exchange = Command("exchange", " <PNJ> : echanger avec le PNJ", Actions.exchange,1)
+        self.commands["exchange"] = exchange
 
         # Setup rooms
         
-        champs = Room("Champs Elysees Clemenceau", "dans la station Champs-Elysees Clemenceau")
+        champs = Room("Champs Elysees", "aux Champs-Elysees, vous aperecevez l'Arc de Triomphe.")
         self.rooms.append(champs)
-        lazare = Room("Gare de Saint-Lazare", "dans la gare de Saint Lazare")
+        clemenceau = Room("Champs Elysees Clemenceau", "dans la station Champs-Elysees Clemenceau.")
+        self.rooms.append(clemenceau)
+        lazare = Room("Gare de Saint-Lazare", "dans la gare de Saint Lazare.")
         self.rooms.append(lazare)
-        cdg = Room("Charles de Gaulle - étoile  ", "dans la station Charles de Gaulle")
+        cdg = Room("Charles de Gaulle - étoile  ", "dans la station Charles de Gaulle.")
         self.rooms.append(cdg)
-        chatelet = Room("Châtelet", "dans la station de Chatelet")
+        chatelet = Room("Châtelet", "dans la station de Chatelet.")
         self.rooms.append(chatelet)
-        paris_nord = Room("Paris Gare du Nord", "dans la Gare du Nord")
+        paris_nord = Room("Paris Gare du Nord", "dans la Gare du Nord.")
         self.rooms.append(paris_nord)
-        st_michel= Room("Saint-Michel", "dans la station Saint Michel Notre-Dame")
+        st_michel= Room("Saint-Michel", "dans la station Saint Michel Notre-Dame.")
         self.rooms.append(st_michel)
-        catacombes = Room("Les Catacombes de Paris", "dans les catacombes de Paris")
+        catacombes = Room("Les Catacombes de Paris", "dans les catacombes de Paris.")
         self.rooms.append(catacombes)
-        surface = Room("Surface", "à la surface")
+        surface = Room("Surface", "à la surface.")
         self.rooms.append(surface)
         aeroport = Room("Aéroport Charles de Gaulle", "dans l'aeroport. Felicitations !")
         self.rooms.append(aeroport)
 
-        # Setup items in rooms
-        sword = Item("Sword", "une épée au fil tranchant comme un rasoir", 3)
-        self.items.append(sword)
-        chatelet.inventory.add(sword)
-        passe = Item("Passe", "un passe Navigo qui donne acces aux trains", 1)
-        self.items.append(passe)
-        champs.inventory.add(passe)
-        caca = Item("Caca", "un caca", 2)
-        self.items.append(caca)
-        cdg.inventory.add(caca)
-
         # Create exits for rooms
-        champs.exits = {"13" : lazare, "1-V" : chatelet, "1-D" : cdg, "C" : st_michel}
+        champs.exits = {"descendre" : clemenceau}
+        clemenceau.exits = {"13" : lazare, "1-V" : chatelet, "1-D" : cdg, "C" : st_michel}
         lazare.exits = {"13" : champs, "14" : chatelet, "E" : paris_nord}
         chatelet.exits = {"1-D" : champs, "A" : cdg, "B" : aeroport}
         cdg.exits = {"1-V" : champs, "A" : chatelet}
@@ -84,6 +82,41 @@ class Game:
         surface.exits = {"redescendre" : paris_nord}
         catacombes.exits = {"remonter" : st_michel}
         aeroport.exits = {"B-N" : paris_nord, "B-C" : chatelet, "B-M" : st_michel}
+
+        # Setup items in rooms
+        sword = Item("Sword", "une épée au fil tranchant comme un rasoir", 3)
+        self.items.append(sword)
+        chatelet.inventory.add(sword)
+        passe = Item("Passe", "un passe Navigo qui donne acces aux trains", 1)
+        self.items.append(passe)
+        #clemenceau.inventory.add(passe)
+        caca = Item("Caca", "un caca", 2)
+        self.items.append(caca)
+        cdg.inventory.add(caca)
+        sandwich = Item("Sandwich", "un delicieux sandwich", 0.5)
+        self.items.append(sandwich)
+        clemenceau.inventory.add(sandwich)
+        billet = Item("Billet", "un billet de 20€", 0.1)
+        self.items.append(billet)
+        cdg.inventory.add(billet)
+        paris_nord.inventory.add(billet)
+        billet_avion = Item("Billet_avion", "un billet d'avion pour Singapour", 1)
+        self.items.append(billet_avion)
+
+        # Setup characters in rooms
+        chomeur = Character("Chomeur", "un chomeur affamé", clemenceau, ["Merci encore pour le sandwich, vous me sauvez.","Ravi d'avoir fait affaire avec vous"], sandwich, passe)
+        self.characters.append(chomeur)
+        clemenceau.characters[chomeur.name]=chomeur
+        policier = Character("Policier", "un policier francais a votre recherche", lazare, "VOUS ETES EN ETAT D'ARRESTATION !!!")
+        self.characters.append(policier)
+        lazare.characters[policier.name]=policier
+        boulanger = Character("Boulanger", "un boulanger sympathique", champs, ["Voulez-vous acheter un sandwich ? Ca sera 3 euros svp","Merci"])
+        self.characters.append(boulanger)
+        champs.characters[boulanger.name]=boulanger
+        billettiste = Character("billettiste", "un vendeur de billet d'avion", aeroport, ["Voici votre billet.","Bon vol"], billet, billet_avion)
+        self.characters.append(billettiste)
+        aeroport.characters[chomeur.name]=chomeur
+
 
         # Setup player and starting room
 

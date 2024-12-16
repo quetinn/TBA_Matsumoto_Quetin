@@ -46,6 +46,7 @@ class Actions:
         """
         
         player = game.player
+        characters = game.characters
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
         if l != number_of_parameters + 1:
@@ -78,6 +79,9 @@ class Actions:
         # Move the player in the direction specified by the parameter.
         try:
             player.move(direction)
+               # for pnj in characters:
+                #    pnj.move()
+
         except KeyError:
             print("\n Direction inconnue. \n")
         return True
@@ -226,8 +230,7 @@ class Actions:
                 
                 player.inventory[item.name]=item
                 player.current_room.inventory.remove(item)
-                print(f"\nVous avez pris : {item.name}.\n")
-                print(player.inventory)
+                print(f"\nVous avez pris l'objet : '{item.name}'.\n")
                 return True
         if name_item in player.inventory:
                 print(f"\nL'objet '{name_item}' se trouve deja dans votre inventaire.\n")
@@ -249,7 +252,57 @@ class Actions:
         if name_item in player.inventory :
             item = player.inventory.pop(name_item)
             player.current_room.inventory.add(item)
-            print(f"\nVous avez déposé : {item.name}.\n")
+            print(f"\nVous avez déposé l'objet : '{item.name}'.\n")
         else :
-            print(f"\nVous ne possedez pas de {name_item}.\n")
+            print(f"\nVous ne possedez pas cet objet : '{name_item}'.\n")
         return True
+    
+    def talk(game, list_of_words, number_of_parameters):
+        l = len(list_of_words)
+        # If the number of parameters is incorrect, print an error message and return False.
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+        characters = game.player.current_room.characters.values()
+        player = game.player
+        #character correspond aux pnj presents dans la meme room que le joueur
+        nom_pnj = list_of_words[1].capitalize()
+        for pnj in characters:
+            if nom_pnj == pnj.name :
+                print(f"\n- {pnj.name} : {pnj.get_msg(player)}\n")
+            else :
+                print(f"\nIl n'y a personne avec le nom : {nom_pnj} dans cet endroit.\n")
+            return True
+        
+    def exchange(game, list_of_words, number_of_parameters):
+        l = len(list_of_words)
+        # If the number of parameters is incorrect, print an error message and return False.
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+        nom_pnj = list_of_words[1].capitalize()
+        characters = game.player.current_room.characters.values()
+        player = game.player
+        for pnj in characters:
+            if nom_pnj == pnj.name:
+                if pnj.item_gift :
+                    if pnj.item_recquis.name in player.inventory:
+                        print(f"\n- {pnj.name} : {pnj.item_recquis.name} ! Je vous remercie. Voici un objet en échange.\n")
+                        # Donner un objet au joueur
+                        player.inventory[pnj.item_gift.name] = pnj.item_gift
+                        # Retirer l'objet donné
+                        player.inventory.pop(pnj.item_recquis.name)
+                        print(f"Vous avez recu l'objet: '{pnj.item_gift.name}'\n")
+                        pnj.item_gift = None
+                    else:
+                        print(f"\n- {pnj.name} : Tu n'as pas ce que je veux ... Apporte le moi.\n")
+                    return True
+                else :
+                    print("\nJe n'ai rien a echanger.\n")
+                    return True
+            else :
+                print("\nVous ne pouvez pas echanger.\n")
+                return True
+        return False
