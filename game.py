@@ -51,6 +51,8 @@ class Game:
         # Setup items non associes a un Room
         passe = Item("Passe", "un passe Navigo qui donne acces aux trains", 1)
         self.items.append(passe)
+        monnaie = Item("Monnaie", "7€ de monnaie", 0.1)
+        self.items.append(monnaie)
 
         # Setup rooms
         champs = Room("Champs Elysees", "aux Champs-Elysees, vous aperecevez l'Arc de Triomphe.")
@@ -78,7 +80,7 @@ class Game:
         champs.exits = {"descendre" : clemenceau}
         clemenceau.exits = {"13" : lazare, "1-V" : chatelet, "1-D" : cdg, "C" : st_michel, "remonter" : champs}
         lazare.exits = {"13" : clemenceau, "14" : chatelet, "E" : paris_nord}
-        chatelet.exits = {"1-D" : clemenceau, "A" : cdg, "B" : aeroport}
+        chatelet.exits = {"1-D" : clemenceau, "A" : cdg, "B" : aeroport, "14" : lazare}
         cdg.exits = {"1-V" : clemenceau, "A" : chatelet}
         st_michel.exits = {"C" : clemenceau, "B" : aeroport, "descendre" : catacombes}
         paris_nord.exits = {"E" : lazare, "B" : aeroport, "sortir" : surface}
@@ -110,7 +112,7 @@ class Game:
         policier = Character("Policier", "un policier francais a votre recherche", lazare, ["VOUS ETES EN ETAT D'ARRESTATION !!!","HAUT LES MAINS!"])
         self.characters.append(policier)
         lazare.characters[policier.name]=policier
-        boulanger = Character("Boulanger", "un boulanger sympathique", champs, ["Voulez-vous acheter un sandwich ? Ca sera 7 euros svp","Merci"])
+        boulanger = Character("Boulanger", "un boulanger sympathique", champs, ["Voulez-vous acheter un sandwich ? Ca sera 7 euros svp","Merci"], monnaie, sandwich)
         self.characters.append(boulanger)
         champs.characters[boulanger.name]=boulanger
         billettiste = Character("billettiste", "un vendeur de billet d'avion", aeroport, ["Voici votre billet.","Bon vol"], billet, billet_avion)
@@ -122,6 +124,7 @@ class Game:
 
         self.player = Player(input("\nEntrez votre nom: "))
         self.player.current_room = champs
+        self.player.inventory["Monnaie"] = monnaie
         self.player.inventory["Passe"] = passe
 
 

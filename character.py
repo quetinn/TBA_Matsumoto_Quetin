@@ -20,15 +20,17 @@ class Character:
     def move(self):
         deplacement = random.choice(["bouge","reste"])
         sorties = self.current_room.exits
-        direction = random.choice(list(sorties.keys()))
-        if deplacement == "bouge":
-            if not sorties :
+        if not sorties :
                 return False
+        if deplacement == "bouge":
+            direction = random.choice(list(sorties.keys()))
             next_room = self.current_room.exits[direction]
-            if self in self.current_room.inventory:
-                del self.current_room.inventory[self]
+            if not next_room :
+                return False
+            if self.name in self.current_room.characters:
+                del self.current_room.characters[self.name]
             self.current_room = next_room
-            next_room.inventory[self.name]=self
+            next_room.characters[self.name]=self
             print(f"{self.name} se trouve maintenant dans {self.current_room.name}\n")
             return True
         else :
