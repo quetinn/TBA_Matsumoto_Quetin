@@ -127,7 +127,6 @@ class Game:
         self.player.inventory["Monnaie"] = monnaie
         self.player.inventory["Passe"] = passe
 
-
     # Play the game
     def play(self):
         self.setup()

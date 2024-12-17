@@ -16,12 +16,12 @@ class Character:
     # Representation string
     def __str__(self):
         return  f"{self.name} : {self.description}"
-    
+
     def move(self):
         deplacement = random.choice(["bouge","reste"])
         sorties = self.current_room.exits
         if not sorties :
-                return False
+            return False
         if deplacement == "bouge":
             direction = random.choice(list(sorties.keys()))
             next_room = self.current_room.exits[direction]
@@ -35,7 +35,7 @@ class Character:
             return True
         else :
             print(f"{self.name} se trouve encore dans {self.current_room.name}\n")
-        return False 
+        return False
     
     def get_msg(self, player) :
         if not self.msgs :

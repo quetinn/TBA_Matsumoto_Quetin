@@ -2,7 +2,7 @@
 
 class Room:
 
-    # Define the constructor. 
+    # Define the constructor.
     def __init__(self, name, description, item=None, mission=None):
         self.name = name
         self.description = description
@@ -11,25 +11,24 @@ class Room:
         self.characters = {}
         self.item_required = item
         self.missiom_cleared = mission
-            
+
     # Define the get_exit method.
     def get_exit(self, direction):
 
         # Return the room in the given direction if it exists.
         if direction in self.exits.keys():
             return self.exits[direction]
-        else:
-            None
-    
+        return None
+
     # Return a string describing the room's exits.
     def get_exit_string(self):
-        exit_string = "Sorties : " 
+        exit_string = "Sorties : "
         for exit in self.exits.keys():
             if self.exits.get(exit) is not None:
                 exit_string += exit + ", "
         exit_string = exit_string.strip(", ")
         return exit_string
-    
+
     # return a string describing items in the room
 
     def get_inventory(self):

@@ -8,7 +8,7 @@ class Player():
         self.history = []
         self.inventory = dict()
         self.max_weight = 3
-    
+
     # Define the move method.
     def move(self, direction, player):
         # Get the next room from the exits dictionary of the current room.
@@ -18,11 +18,11 @@ class Player():
         if next_room is None:
             print("\nAucune porte dans cette direction !\n")
             return False
-        
+
         if next_room == "interdit":
             print("\nPassage interdit !\n")
             return False
-        
+
         if next_room == "unique":
             print("\nPassage a sens unique !\n")
             return False
@@ -42,7 +42,7 @@ class Player():
             history_string += "\t- " + station.name + "\n"
         history_string = history_string.strip(",")
         return history_string
-    
+
     def back(self):
         if len(self.history) <= 1 :
             print("\nVous etes revenu au point de depart.")

@@ -18,6 +18,7 @@ MSG1 = "\nLa commande '{command_word}' prend 1 seul paramètre.\n"
 
 class Actions:
 
+    @staticmethod
     def go(game, list_of_words, number_of_parameters):
         """
         Move the player in the direction specified by the parameter.
@@ -85,7 +86,7 @@ class Actions:
             print("\n Direction inconnue. \n")
         return True
     
-
+    @staticmethod
     def history(game, list_of_words, number_of_parameters):
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
@@ -95,7 +96,7 @@ class Actions:
             return False
         print(f"\n{game.player.get_history()}")
 
-
+    @staticmethod
     def back(game, list_of_words, number_of_parameters):
         player = game.player
         l = len(list_of_words)
@@ -107,6 +108,7 @@ class Actions:
         player.back()
         return 
 
+    @staticmethod
     def quit(game, list_of_words, number_of_parameters):
         """
         Quit the game.
@@ -146,6 +148,7 @@ class Actions:
         game.finished = True
         return True
 
+    @staticmethod
     def help(game, list_of_words, number_of_parameters):
         """
         Print the list of available commands.
@@ -186,6 +189,7 @@ class Actions:
         print()
         return True
     
+    @staticmethod
     def check(game, list_of_words, number_of_parameters):
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
@@ -195,6 +199,7 @@ class Actions:
             return False
         print(f"\n{game.player.get_inventory()}")
     
+    @staticmethod
     def look(game, list_of_words, number_of_parameters):
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
@@ -204,6 +209,7 @@ class Actions:
             return False
         print("\n",game.player.current_room.get_inventory())
 
+    @staticmethod
     def take(game, list_of_words, number_of_parameters):
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
@@ -237,6 +243,7 @@ class Actions:
             print(f"\nL'objet '{name_item}' n'est pas dans cet endroit.\n")
         return True
 
+    @staticmethod
     def drop(game, list_of_words, number_of_parameters):
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
@@ -255,7 +262,8 @@ class Actions:
         else :
             print(f"\nVous ne possedez pas cet objet : '{name_item}'.\n")
         return True
-    
+
+    @staticmethod
     def talk(game, list_of_words, number_of_parameters):
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
@@ -273,7 +281,8 @@ class Actions:
             else :
                 print(f"\nIl n'y a personne avec le nom : {nom_pnj} dans cet endroit.\n")
             return True
-        
+
+    @staticmethod
     def exchange(game, list_of_words, number_of_parameters):
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
