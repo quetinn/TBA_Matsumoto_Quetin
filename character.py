@@ -36,7 +36,7 @@ class Character:
         else :
             print(f"{self.name} se trouve encore dans {self.current_room.name}\n")
         return False
-    
+
     def get_msg(self, player) :
         if not self.msgs :
             print(f"{self.name} ne veut pas vous parler.")
