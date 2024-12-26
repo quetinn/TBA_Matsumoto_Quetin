@@ -16,7 +16,7 @@ class Room:
     Représente une pièce dans notre jeu. Chaque pièce peut contenir des objets, des personnages,
     des sorties vers d'autres pièces, ainsi que des conditions d'accès.
 
-    Attributes:
+    Attributs:
         name (str): Le nom de la pièce.
         description (str): La description de la pièce.
         exits (dict): Un dictionnaire des sorties disponibles,
