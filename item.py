@@ -16,6 +16,9 @@ class Item:
         description (str) : Une description de l'objet.
         weight (float) : Le poids de l'objet en kilogrammes.
     """
+    # Désactivation de la règle "trop peu de méthodes publiques"
+    # pylint: disable=too-few-public-methods
+
     # Constructeur
     def __init__(self,name,description,weight):
         """
