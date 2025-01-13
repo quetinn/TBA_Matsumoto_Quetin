@@ -37,7 +37,7 @@ class Room:
             inventory_string = "On voit :\n"
             for objet in self.inventory :
                 inventory_string += "\t- " + str(objet) + "\n"
-            for personnage in self.characters.values() :
+            for personnage in self.chargitacters.values() :
                 inventory_string += "\t- " + str(personnage) + "\n"
             inventory_string = inventory_string.strip(",")
             return inventory_string
