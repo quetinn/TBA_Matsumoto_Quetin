@@ -101,7 +101,7 @@ class Game:
         surface = Room("Surface", "à la surface.")
         self.rooms.append(surface)
         aeroport = Room("Aéroport Charles de Gaulle",
-                         "dans l'aeroport. Felicitations !", None, None)
+                         "dans l'aeroport. Bien joue.", None, None)
         self.rooms.append(aeroport)
 
         # Create exits for rooms
@@ -162,6 +162,17 @@ class Game:
         self.player.inventory["Monnaie"] = monnaie
         self.player.inventory["Passe"] = passe
 
+    def endgame(self):
+        if self.player.current_room.name == "Aéroport Charles de Gaulle":
+            print("Vous êtes arrivé à l'aeroport, felicitations ! Vous vous etes enfui et les informations ont bien ete recu par le gouvernement americain")
+            self.finished = True
+        if "Policier" in self.player.current_room.characters :
+            self.finished = True
+            print("- Policier : Je vous arrete !!! \nVous avez ete debusque. Vous avez perdu.")
+        if self.player.move_count > 5 :
+            self.finished = True
+            print("Vous avez pris trop de temps... La police vous a retrouve.")
+
     # Play the game
     def play(self):
         """
@@ -171,6 +182,7 @@ class Game:
         self.setup()
         self.print_welcome()
         # Loop until the game is finished
+        endgame()
         while not self.finished:
             # Get the command from the player
             self.process_command(input("> "))
@@ -216,7 +228,6 @@ class Game:
                " (RER ou metro) en sous-terrain. Bonne chance.")
         print(self.player.current_room.get_long_description())
 
-
 def main():
     """
     Point d'entrée principal pour exécuter le jeu.
@@ -227,3 +238,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

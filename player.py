@@ -33,6 +33,7 @@ class Player():
         self.history = []
         self.inventory = {}
         self.max_weight = 3
+        self.move_count = 0
 
     # Define the move method.
     def move(self, direction, player):
@@ -68,7 +69,9 @@ class Player():
         # Set the current room to the next room.
         self.history.append(self.current_room)
         self.current_room = next_room
+        self.move_count += 1
         print(f"{self.current_room.get_long_description()}\n{self.get_history()}")
+        print(f"{self.move_count}")
         return True
 
     def get_history(self):
