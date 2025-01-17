@@ -100,7 +100,7 @@ class Game:
         surface = Room("Surface", "à la surface.")
         self.rooms.append(surface)
         aeroport = Room("Aéroport Charles de Gaulle",
-                         "dans l'aeroport. Felicitations !", None, None)
+                         "dans l'aeroport. Bien joue.", None)
         self.rooms.append(aeroport)
 
         # Create exits for rooms
@@ -108,13 +108,13 @@ class Game:
         clemenceau.exits = {"13" : lazare, "1-V" : chatelet,
                              "1-D" : cdg, "C" : st_michel, "remonter" : champs}
         lazare.exits = {"13" : clemenceau, "14" : chatelet, "E" : paris_nord}
-        chatelet.exits = {"1-D" : clemenceau, "A" : cdg, "B" : aeroport, "14" : lazare}
+        chatelet.exits = {"1-D" : clemenceau, "A" : cdg, "B-C" : "malaise", "14" : lazare}
         cdg.exits = {"1-V" : clemenceau, "A" : chatelet}
-        st_michel.exits = {"C" : clemenceau, "B" : aeroport, "descendre" : catacombes}
-        paris_nord.exits = {"E" : lazare, "B" : aeroport, "sortir" : surface}
+        st_michel.exits = {"C" : clemenceau, "B-M" : aeroport, "descendre" : catacombes}
+        paris_nord.exits = {"E" : lazare, "B-N" : aeroport, "sortir" : surface}
         surface.exits = {"redescendre" : paris_nord}
         catacombes.exits = {"remonter" : st_michel}
-        aeroport.exits = {"B-N" : paris_nord, "B-C" : chatelet, "B-M" : st_michel}
+        aeroport.exits = {"B-N" : paris_nord, "B-C" : "malaise", "B-M" : st_michel}
 
         # Setup items in rooms
         sword = Item("Sword", "une épée au fil tranchant comme un rasoir", 3)
@@ -139,10 +139,10 @@ class Game:
                               "Ravi d'avoir fait affaire avec vous"], sandwich, passe)
         self.characters.append(chomeur)
         clemenceau.characters[chomeur.name]=chomeur
-        policier = Character("Policier", "un policier francais a votre recherche", lazare,
+        policier = Character("Policier", "un policier francais a votre recherche", aeroport,
                               ["VOUS ETES EN ETAT D'ARRESTATION !!!","HAUT LES MAINS!"])
         self.characters.append(policier)
-        lazare.characters[policier.name]=policier
+        aeroport.characters[policier.name]=policier
         boulanger = Character("Boulanger", "un boulanger sympathique", champs,
                                ["Voulez-vous acheter un sandwich ? Ca sera 7 euros svp","Merci"],
                                  monnaie, sandwich)
@@ -161,6 +161,20 @@ class Game:
         self.player.inventory["Monnaie"] = monnaie
         self.player.inventory["Passe"] = passe
 
+    def endgame(self):
+        if self.player.current_room.name == "Aéroport Charles de Gaulle":
+            print("Vous êtes arrivé à l'aeroport, felicitations ! Vous vous etes enfui et les informations ont bien ete recu par le gouvernement americain\n")
+            self.finished = True
+            return True
+        if "Policier" in self.player.current_room.characters :
+            self.finished = True
+            print("- Policier : Je vous arrete !!! \nVous avez ete debusque. Vous avez perdu.\n")
+            return True
+        if self.player.move_count > 8 :
+            self.finished = True
+            print("Vous avez pris trop de temps... La police vous a retrouve.\n")
+            return True
+        
     # Play the game
     def play(self):
         """
@@ -173,6 +187,7 @@ class Game:
         while not self.finished:
             # Get the command from the player
             self.process_command(input("> "))
+            self.endgame()
 
     # Process the command entered by the player
     def process_command(self, command_string) -> None:
@@ -215,7 +230,6 @@ class Game:
                " (RER ou metro) en sous-terrain. Bonne chance.")
         print(self.player.current_room.get_long_description())
 
-
 def main():
     """
     Point d'entrée principal pour exécuter le jeu.
@@ -226,3 +240,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
