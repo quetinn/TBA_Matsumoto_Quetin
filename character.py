@@ -25,7 +25,7 @@ class Character:
         item_gift (Item) : Un objet que le personnage peut offrir au joueur (optionnel).
     """
     #Constructeur
-    def __init__(self, name, description, room, msgs, item=None, gift=None):
+    def __init__(self, name, description, room, msgs=None, item=None, gift=None):
         """
         Initialise un objet Character.
 
@@ -56,7 +56,8 @@ class Character:
 
     def move(self):
         """
-        Déplace le personnage aléatoirement dans une salle adjacente, si possible. 2 chances sur 5 de deplacement
+        Déplace le personnage aléatoirement dans une salle adjacente, si possible.
+        2 chances sur 5 de déplacement.
 
         Le personnage reste dans la salle actuelle ou se déplace vers une salle
         adjacente choisie aléatoirement si des sorties sont disponibles.
@@ -64,14 +65,14 @@ class Character:
         Returns :
             bool : True si le personnage se déplace dans une autre salle, False sinon.
         """
-        deplacement = random.choice(["bouge","bouge"])
+        deplacement = random.choice(["bouge","bouge","reste","reste","reste"])
         sorties = self.current_room.exits
         if not sorties :
             return False
         if deplacement == "bouge":
             direction = random.choice(list(sorties.keys()))
             next_room = self.current_room.exits[direction]
-            if type(next_room) == str :
+            if isinstance(next_room, str):
                 print(f"{self.name} se trouve encore dans {self.current_room.name}\n")
                 return False
             if self.name in self.current_room.characters:
@@ -97,14 +98,28 @@ class Character:
         Returns :
             str : Le message que le personnage dit.
         """
-        if not self.msgs :
-            print(f"{self.name} ne veut pas vous parler.")
+        if self.msgs is None :
+            return "Ne veut pas vous parler."
         if self.name == "Chomeur" :
             if self.item_gift:
                 if self.item_required.name not in player.inventory :
                     return ("J'ai tres faim... Je te donnerais un objet "
                             "que j'ai trouve si tu me donnes de quoi manger.")
-                return "Je le sens, t'as quelque chose pour moi! On echange?"
+                return "Je le sens, t'as quelque chose pour moi ! On echange ?"
+            self.msgs.append(self.msgs[0])
+            return self.msgs.pop(0)
+        if self.name == "Boulanger" :
+            if self.item_gift:
+                if self.item_required.name in player.inventory :
+                    return "Voulez-vous acheter un sandwich ? Ca sera 7 euros SVP."
+            self.msgs.append(self.msgs[0])
+            return self.msgs.pop(0)
+        if self.name == "Suspect" :
+            if self.item_gift:
+                if self.item_required.name not in player.inventory :
+                    return ("Un objet a l'effigie de notre pays tu m'ameneras, "
+                            "le ticket pour la terre de la Liberte je te donnerais.")
+                return "Tu sembles avoir ce que je demande..."
             self.msgs.append(self.msgs[0])
             return self.msgs.pop(0)
         self.msgs.append(self.msgs[0])

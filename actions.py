@@ -85,8 +85,8 @@ class Actions:
             "1v":"1-V", "unev":"1-V", "unv":"1-V", "metro1v":"1-V", 
             "métro1v":"1-V", "1-v":"1-V", "m1-v":"1-V", 
             "descendre":"descendre","sortir":"sortir", 
-            "remonter":"remonter","redescendre":"redescendre", 
-            "d":"descendre","s":"sortir"
+            "monter":"monter","redescendre":"redescendre", 
+            "d":"descendre","s":"sortir","m":"monter","r":"redescendre"
         }
 
         # Get the direction from the list of words.
@@ -405,10 +405,8 @@ class Actions:
             if nom_pnj == pnj.name:
                 if pnj.item_gift :
                     if pnj.item_required.name in player.inventory:
-                        print(
-                            f"\n- {pnj.name} : {pnj.item_required.name} !"
-                              " Je vous remercie. Voici un objet en échange.\n"
-                        )
+                        print(f"\n- {pnj.name} : '{pnj.item_required.name}' !"
+                              " Je vous remercie. Voici un objet en échange.\n")
                         # Donner un objet au joueur
                         player.inventory[pnj.item_gift.name] = pnj.item_gift
                         # Retirer l'objet donné
@@ -416,12 +414,10 @@ class Actions:
                         print(f"Vous avez recu l'objet: '{pnj.item_gift.name}'\n")
                         pnj.item_gift = None
                     else:
-                        print(f"\n- {pnj.name} : Tu n'as pas ce que je veux ... Apporte le moi.\n")
+                        print(f"\n- {pnj.name} : Tu n'as pas ce que je veux ...\n")
                     return True
-                else :
-                    print("\nJe n'ai rien a echanger.\n")
-                    return True
-            else :
-                print("\nVous ne pouvez pas echanger.\n")
+                print("\nJe n'ai rien a echanger.\n")
                 return True
+            print("\nVous ne pouvez pas echanger.\n")
+            return True
         return False

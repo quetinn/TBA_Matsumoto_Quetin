@@ -27,7 +27,7 @@ class Item:
         Args :
             name (str) : Le nom de l'objet.
             description (str) : Une description de l'objet.
-            weight (float) : Le poids de l'objet en kilogrammes.
+            weight (float) : Le poids de l'objet en grammes.
         """
         self.name = name
         self.description = description
@@ -42,4 +42,4 @@ class Item:
             str : Une description formatée de l'objet, incluant son nom, sa description
                   et son poids.
         """
-        return  f"{self.name} : {self.description} ({self.weight} kg)"
+        return  f"{self.name} : {self.description} ({self.weight} g)"

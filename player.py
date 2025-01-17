@@ -32,7 +32,7 @@ class Player():
         self.current_room = None
         self.history = []
         self.inventory = {}
-        self.max_weight = 3
+        self.max_weight = 500
         self.move_count = 0
 
     # Define the move method.
