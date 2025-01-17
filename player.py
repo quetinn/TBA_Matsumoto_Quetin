@@ -55,8 +55,8 @@ class Player():
             print("\nAucune porte dans cette direction !\n")
             return False
 
-        if next_room == "interdit":
-            print("\nPassage interdit !\n")
+        if next_room == "malaise":
+            print("\nMalaise voyageur ! Le traffic est interrompu ici.\n")
             return False
 
         if next_room == "unique":
@@ -71,7 +71,7 @@ class Player():
         self.current_room = next_room
         self.move_count += 1
         print(f"{self.current_room.get_long_description()}\n{self.get_history()}")
-        print(f"{self.move_count}")
+        print(f"Vous vous etes deplace {self.move_count} fois.\n")
         return True
 
     def get_history(self):

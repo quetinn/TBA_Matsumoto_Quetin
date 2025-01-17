@@ -56,7 +56,7 @@ class Character:
 
     def move(self):
         """
-        Déplace le personnage aléatoirement dans une salle adjacente, si possible.
+        Déplace le personnage aléatoirement dans une salle adjacente, si possible. 2 chances sur 5 de deplacement
 
         Le personnage reste dans la salle actuelle ou se déplace vers une salle
         adjacente choisie aléatoirement si des sorties sont disponibles.
@@ -64,14 +64,15 @@ class Character:
         Returns :
             bool : True si le personnage se déplace dans une autre salle, False sinon.
         """
-        deplacement = random.choice(["bouge","reste"])
+        deplacement = random.choice(["bouge","bouge"])
         sorties = self.current_room.exits
         if not sorties :
             return False
         if deplacement == "bouge":
             direction = random.choice(list(sorties.keys()))
             next_room = self.current_room.exits[direction]
-            if not next_room :
+            if type(next_room) == str :
+                print(f"{self.name} se trouve encore dans {self.current_room.name}\n")
                 return False
             if self.name in self.current_room.characters:
                 del self.current_room.characters[self.name]

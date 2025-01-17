@@ -24,10 +24,9 @@ class Room:
         inventory (set): Un ensemble contenant les objets présents dans la pièce.
         characters (dict): Un dictionnaire des personnages présents, avec leurs noms comme clés.
         item_required (object, optional): L'objet requis pour entrer ou interagir avec la pièce.
-        missiom_cleared (object, optional): La mission associée à la pièce, le cas échéant.
     """
 
-    def __init__(self, name, description, item=None, mission=None):
+    def __init__(self, name, description, item=None):
         """
         Initialise une nouvelle instance de la classe Room.
 
@@ -35,7 +34,6 @@ class Room:
             name (str): Le nom de la pièce.
             description (str): Une description textuelle de la pièce.
             item (object, optional): Un objet requis pour accéder ou interagir avec la pièce.
-            mission (object, optional): Une mission associée à la pièce. 
         """
         self.name = name
         self.description = description
@@ -43,7 +41,6 @@ class Room:
         self.inventory = set()
         self.characters = {}
         self.item_required = item
-        self.missiom_cleared = mission
 
     def get_exit(self, direction):
         """
