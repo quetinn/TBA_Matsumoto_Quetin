@@ -65,7 +65,7 @@ class Character:
         Returns :
             bool : True si le personnage se déplace dans une autre salle, False sinon.
         """
-        deplacement = random.choice(["bouge","bouge","reste","reste","reste"])
+        deplacement = random.choice(["bouge","bouge","reste","reste"])
         sorties = self.current_room.exits
         if not sorties :
             return False
