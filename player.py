@@ -71,7 +71,7 @@ class Player():
         self.current_room = next_room
         self.move_count += 1
         print(f"{self.current_room.get_long_description()}\n{self.get_history()}")
-        print(f"Vous vous etes deplace {self.move_count} fois.\n")
+        print(f"Vous vous êtes déplacé {self.move_count} fois.\n")
         return True
 
     def get_history(self):
@@ -95,15 +95,15 @@ class Player():
             bool : True si le retour est effectué avec succès, False sinon.
         """
         if len(self.history) <= 1 :
-            print("\nVous etes revenu au point de depart.")
+            print("\nVous êtes revenu au point de départ.")
             try :
                 self.current_room = self.history.pop()
             except IndexError :
-                print("\nVous ne pouvez plus revenir en arriere !")
+                print("\nVous ne pouvez plus revenir en arrière !")
             print(self.current_room.get_long_description())
             return True
         self.current_room = self.history.pop()
-        print("\nVous etes revenu en arriere.")
+        print("\nVous êtes revenu en arrière.")
         print(f"{self.current_room.get_long_description()}\n{self.get_history()}")
         return True
 

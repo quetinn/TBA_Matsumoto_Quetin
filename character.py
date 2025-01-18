@@ -103,22 +103,22 @@ class Character:
         if self.name == "Chomeur" :
             if self.item_gift:
                 if self.item_required.name not in player.inventory :
-                    return ("J'ai tres faim... Je te donnerais un objet "
-                            "que j'ai trouve si tu me donnes de quoi manger.")
-                return "Je le sens, t'as quelque chose pour moi ! On echange ?"
+                    return ("J'ai très faim... Je te donnerais un objet "
+                            "que j'ai trouvé si tu me donnes de quoi manger.")
+                return "Je le sens, t'as quelque chose pour moi ! On échange ?"
             self.msgs.append(self.msgs[0])
             return self.msgs.pop(0)
         if self.name == "Boulanger" :
             if self.item_gift:
                 if self.item_required.name in player.inventory :
-                    return "Voulez-vous acheter un sandwich ? Ca sera 7 euros SVP."
+                    return "Voulez-vous acheter un sandwich ? Ça sera 7 euros SVP."
             self.msgs.append(self.msgs[0])
             return self.msgs.pop(0)
         if self.name == "Suspect" :
             if self.item_gift:
                 if self.item_required.name not in player.inventory :
-                    return ("Un objet a l'effigie de notre pays tu m'ameneras, "
-                            "le ticket pour la terre de la Liberte je te donnerais.")
+                    return ("Un objet à l'effigie de notre pays tu m'amèneras, "
+                            "le ticket pour la terre de la Liberté je te donnerais.")
                 return "Tu sembles avoir ce que je demande..."
             self.msgs.append(self.msgs[0])
             return self.msgs.pop(0)

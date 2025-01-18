@@ -55,12 +55,12 @@ class Game:
         quit = Command("quit", " : quitter le jeu", Actions.quit, 0)
         self.commands["quit"] = quit
         go = Command("go", " <direction> : se déplacer dans une direction"
-                     "(en utilisant les lignes de metro ou rer)", Actions.go, 1)
+                     "(en utilisant les lignes de metro ou RER)", Actions.go, 1)
         self.commands["go"] = go
-        back = Command("back", " : revenir en arriere", Actions.back, 0)
+        back = Command("back", " : revenir en arrière", Actions.back, 0)
         self.commands["back"] = back
         history = Command("history",
-                           " : affiche l'historique des lieux visites", Actions.history, 0)
+                           " : affiche l'historique des lieux visités", Actions.history, 0)
         self.commands["history"] = history
         check = Command("check", " : affiche l'inventaire", Actions.check, 0)
         self.commands["check"] = check
@@ -72,29 +72,29 @@ class Game:
         self.commands["drop"] = drop
         talk = Command("talk", " <PNJ> : parler avec le PNJ", Actions.talk,1)
         self.commands["talk"] = talk
-        exchange = Command("exchange", " <PNJ> : echanger avec le PNJ", Actions.exchange,1)
+        exchange = Command("exchange", " <PNJ> : échanger avec le PNJ", Actions.exchange,1)
         self.commands["exchange"] = exchange
 
         # Setup items non associes a un Room
-        passe = Item("Passe", "un passe Navigo qui donne acces aux trains", 10)
+        passe = Item("Passe", "un passe Navigo qui donne accès aux trains", 10)
         self.items.append(passe)
         monnaie = Item("Monnaie", "7€ de monnaie", 20)
         self.items.append(monnaie)
-        sandwich = Item("Sandwich", "un delicieux sandwich", 400)
+        sandwich = Item("Sandwich", "un délicieux sandwich", 400)
         self.items.append(sandwich)
         billet = Item("Billet", "un billet d'avion pour New York", 10)
         self.items.append(billet)
 
         # Setup rooms
-        champs = Room("Champs Elysees", "aux Champs-Elysees, vous aperecevez l'Arc de Triomphe.")
+        champs = Room("Champs Elysées", "aux Champs-Elysées, vous aperecevez l'Arc de Triomphe.")
         self.rooms.append(champs)
-        clemenceau = Room("Champs Elysees Clemenceau", "dans la station Champs-Elysees Clemenceau.")
+        clemenceau = Room("Champs Elysées Clémenceau", "dans la station Champs-Elysées Clémenceau.")
         self.rooms.append(clemenceau)
         lazare = Room("Gare de Saint-Lazare", "dans la gare de Saint Lazare.", passe)
         self.rooms.append(lazare)
-        cdg = Room("Charles de Gaulle - étoile  ", "dans la station Charles de Gaulle.", passe)
+        cdg = Room("Charles de Gaulle - étoile", "dans la station Charles de Gaulle.", passe)
         self.rooms.append(cdg)
-        chatelet = Room("Châtelet", "dans la station de Chatelet.", passe)
+        chatelet = Room("Châtelet", "dans la station de Châtelet.", passe)
         self.rooms.append(chatelet)
         paris_nord = Room("Paris Gare du Nord", "dans la Gare du Nord.", passe)
         self.rooms.append(paris_nord)
@@ -125,25 +125,25 @@ class Game:
         journal = Item("Journal", "un journal sale", 460)
         self.items.append(journal)
         cdg.inventory.add(journal)
-        canette = Item("Canette", "une canette de Oasis a moitie vide", 200)
+        canette = Item("Canette", "une canette de Oasis à moitié vide", 200)
         self.items.append(canette)
         chatelet.inventory.add(canette)
-        lunettes = Item("Lunettes", "des lunettes de soleil teinte du drapeau americain", 50)
+        lunettes = Item("Lunettes", "des lunettes de soleil teintées du drapeau américain", 50)
         self.items.append(lunettes)
         surface.inventory.add(lunettes)
 
         # Setup characters in rooms
-        chomeur = Character("Chomeur", "un chomeur affamé", clemenceau,
+        chomeur = Character("Chomeur", "un chômeur affamé", clemenceau,
                              ["Merci encore pour le sandwich, vous me sauvez.",
                               "Ravi d'avoir fait affaire avec vous"], sandwich, passe)
         self.characters.append(chomeur)
         clemenceau.characters[chomeur.name]=chomeur
-        policier = Character("Policier", "un policier francais a votre recherche", aeroport,
-                              ["VOUS ETES EN ETAT D'ARRESTATION !!!","HAUT LES MAINS!"])
+        policier = Character("Policier", "un policier français à votre recherche", aeroport,
+                              ["VOUS ÊTES EN ÉTAT D'ARRESTATION !!!","HAUT LES MAINS!"])
         self.characters.append(policier)
         aeroport.characters[policier.name]=policier
         boulanger = Character("Boulanger", "un boulanger sympathique", champs,
-                               ["Ca sera tout ? merci.","Bonne journee."],
+                               ["Ça sera tout ? merci.","Bonne journée."],
                                  monnaie, sandwich)
         self.characters.append(boulanger)
         champs.characters[boulanger.name]=boulanger
@@ -151,7 +151,7 @@ class Game:
                                  ["Bon travail.","Bon vol."], lunettes, billet)
         self.characters.append(suspect)
         catacombes.characters[suspect.name]=suspect
-        touriste = Character("Touriste", "un touriste americain enerve qui a perdu ses lunettes",
+        touriste = Character("Touriste", "un touriste américain énervé qui a perdu ses lunettes",
                              lazare)
         self.characters.append(touriste)
         lazare.characters[touriste.name]=touriste
@@ -165,21 +165,21 @@ class Game:
 
     def endgame(self):
         """
-        Permet de terminer le jeu, donner des conditions de victoire et de defaites
+        Permet de terminer le jeu, déterminer des conditions de victoire et de défaites
         """
         if "Policier" in self.player.current_room.characters :
             self.finished = True
-            print("- Policier : Je vous arrete !!! \n \nVous avez été débusqué. Vous avez perdu.\n")
+            print("- Policier : Je vous arrête !!! \n \nVous avez été débusqué. Vous avez perdu.\n")
             return True
         if (self.player.current_room.name == "Aéroport Charles de Gaulle" and
             any(item == "Billet" for item in self.player.inventory)):
-            print("Vous êtes arrivé à l'aeroport, felicitations ! Vous vous etes enfui et les "
-            "informations ont bien ete recu par le gouvernement americain.\n")
+            print("Vous êtes arrivé à l'aéroport, félicitations ! Vous vous êtes enfui et les "
+            "informations ont bien été reçu par le gouvernement américain.\n")
             self.finished = True
             return True
         if self.player.move_count > 16 :
             self.finished = True
-            print("Vous avez pris trop de temps... La police vous a retrouve.\n")
+            print("Vous avez pris trop de temps... La police vous a retrouvé.\n")
             return True
         return None
 
@@ -230,10 +230,10 @@ class Game:
         Affiche un message de bienvenue et une introduction au jeu.
         """
         print(f"\nBienvenue {self.player.name} dans ce jeu d'aventure !")
-        print("\nVous etes un espion americain avec des informations confidentielles revelant "
-              "la corruption du gouvernement francais. Vous etes poursuivi et vous avez pour " 
-              "objectif d'atteindre l'aeroport de Roissy afin de vous echapper. Cependant, " 
-              "il faut vous faire discret : vous devez vous deplacer dans les lignes parisiennes "
+        print("\nVous êtes un espion américain avec des informations confidentielles révelant "
+              "la corruption du gouvernement français. Vous êtes poursuivi et vous avez pour " 
+              "objectif d'atteindre l'aéroport de Roissy afin de vous échapper. Cependant, " 
+              "il faut vous faire discret : vous devez vous déplacer dans les lignes parisiennes "
                 "(RER ou metro) en sous-terrain. Bonne chance.")
         print("\nEntrez 'help' si vous avez besoin d'aide.")
         print(self.player.current_room.get_long_description())
