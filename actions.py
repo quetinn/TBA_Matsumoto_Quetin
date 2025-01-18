@@ -303,7 +303,7 @@ class Actions:
                 total_weight += item.weight
                 if total_weight > player.max_weight :
                     print(
-                        "\nLimite d'objet atteinte, il faut deposer un objet "
+                        "\nLimite d'objet atteinte, il faut déposer un objet "
                         "avant d'en prendre un nouveau.\n"
                     )
                     return True
@@ -313,7 +313,7 @@ class Actions:
                 print(f"\nVous avez pris l'objet : '{item.name}'.\n")
                 return True
         if name_item in player.inventory:
-            print(f"\nL'objet '{name_item}' se trouve deja dans votre inventaire.\n")
+            print(f"\nL'objet '{name_item}' se trouve déjà dans votre inventaire.\n")
         else :
             print(f"\nL'objet '{name_item}' n'est pas dans cet endroit.\n")
         return True
@@ -346,7 +346,7 @@ class Actions:
             player.current_room.inventory.add(item)
             print(f"\nVous avez déposé l'objet : '{item.name}'.\n")
         else :
-            print(f"\nVous ne possedez pas cet objet : '{name_item}'.\n")
+            print(f"\nVous ne possédez pas cet objet : '{name_item}'.\n")
         return True
 
     @staticmethod
@@ -416,8 +416,8 @@ class Actions:
                     else:
                         print(f"\n- {pnj.name} : Tu n'as pas ce que je veux ...\n")
                     return True
-                print("\nJe n'ai rien a echanger.\n")
+                print("\nJe n'ai rien à échanger.\n")
                 return True
-            print("\nVous ne pouvez pas echanger.\n")
+            print("\nVous ne pouvez pas échanger.\n")
             return True
         return False
